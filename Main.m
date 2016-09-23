@@ -1,6 +1,7 @@
 script
 clc
 %ProbaPera
+absol=[1322 2323 232 23]
 clear all
 Register = [1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 ];
 Nsk = 16;
