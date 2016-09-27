@@ -1,16 +1,17 @@
 function [ FunctionOfCorrelation ] = FuncCorrelation( SignalOut, Nfft )
-ab=zeros(1,length(SignalOut)-1024);
-b=zeros(1,length(SignalOut)-1024);
-a=zeros(1,length(SignalOut)-1024);
-c=zeros(1,length(SignalOut)-1024);
-SignalOut1=[SignalOut zeros(1,100000)]; 
-   for k=0:length(SignalOut)-1025
-       for l=1:Nfft/16
-           ab(k+1)= ab(k+1)+SignalOut1(k+l)*SignalOut1(k+Nfft+l);
-           a(k+1)=a(k+1)+SignalOut1(k+l)^2;
-           b(k+1)=b(k+1)+SignalOut1(k+Nfft+l)^2;
+MultiplicationOfWindows = zeros(1, length(SignalOut) - Nfft);
+FirstWindow = zeros(1, length(SignalOut) - Nfft);
+SecondWindow = zeros(1, length(SignalOut) - Nfft);
+FunctionOfCorrelation = zeros(1, length(SignalOut) - Nfft);
+SignalOut = [SignalOut zeros(1,Nfft/16)]; 
+   for k = 1 : (length(SignalOut) - Nfft)
+       for l = 0 : ((Nfft/16)-1)
+           MultiplicationOfWindows(k) = MultiplicationOfWindows(k)...
+               + SignalOut(k + l)*SignalOut(k + Nfft + l);
+           FirstWindow(k) = FirstWindow(k) + SignalOut(k + l)^2;
+           SecondWindow(k) = SecondWindow(k) + SignalOut(k + Nfft + l)^2;
        end
-       c(k+1)=ab(k+1)/sqrt(a(k+1)*b(k+1));
+       FunctionOfCorrelation(k) =...
+           MultiplicationOfWindows(k)/sqrt(FirstWindow(k) * SecondWindow(k));
    end
-   FunctionOfCorrelation=c;
 end
