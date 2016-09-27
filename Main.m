@@ -17,11 +17,11 @@ SignalOut = Modul( MedSignalInF , NumbSymbol, Nc, Nfft );
 FunctionOfCorrelation = FuncCorrelation(SignalOut,Nfft);
 plot(FunctionOfCorrelation);
 % plot(SignalOut);
-DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
+%DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
 % scatterplot(DeSignalInF)
 % figure;
 %  plot(abs(DeSignalInF));
 %  figure;
-DeBits = DeMapper(MedSignalInF,Nc,Nsk );
-FinalBits = RSLOS(DeBits, Register);
+%DeBits = DeMapper(MedSignalInF,Nc,Nsk );
+%FinalBits = RSLOS(DeBits, Register);
 %  plot(xor(FinalBits,InputBits));
