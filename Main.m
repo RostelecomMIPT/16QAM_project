@@ -1,6 +1,6 @@
 script
-clc
-clear all
+clc;
+clear all;
 Register = [1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 ];
 Nsk = 16;
 Nfft = 1024;
@@ -14,7 +14,7 @@ MedSignalInF = Mapper(Bits, Nsk);
 % figure;
 SignalOut = Modul( MedSignalInF , NumbSymbol, Nc, Nfft );
 FunctionOfCorrelation = FuncCorrelation(SignalOut,Nfft);
-PositionOfTs = PositionOfTs(FunctionOfCorrelation,LevelOfIncreasing)
+PositionOfTs = PositionOfTs(FunctionOfCorrelation,LevelOfIncreasing);
 plot(FunctionOfCorrelation);
 % a=Middle(FunctionOfCorrelation);
 % plot(SignalOut);
