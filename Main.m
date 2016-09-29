@@ -15,7 +15,7 @@ FunctionOfCorrelation = FuncCorrelation(SignalOut,Nfft);
 plot(FunctionOfCorrelation);
 PositionOfTs = PositionOfTs(FunctionOfCorrelation, LevelOfIncreasing, Nfft);
 hold on;
-plot(FunctionOfCorrelation(PositionOfTs),'*');
+plot(PositionOfTs,FunctionOfCorrelation(PositionOfTs),'*');
 % a=Middle(FunctionOfCorrelation);
 % plot(SignalOut);
 %DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
