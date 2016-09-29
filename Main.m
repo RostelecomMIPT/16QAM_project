@@ -10,8 +10,6 @@ LevelOfIncreasing = 3;
 InputBits = randi([0,1],1,(Nc*sqrt(Nsk)*NumbSymbol));
 Bits = RSLOS(InputBits, Register);
 MedSignalInF = Mapper(Bits, Nsk);
-% plot(abs(MedSignalInF));
-% figure;
 SignalOut = Modul( MedSignalInF , NumbSymbol, Nc, Nfft );
 FunctionOfCorrelation = FuncCorrelation(SignalOut,Nfft);
 PositionOfTs = PositionOfTs(FunctionOfCorrelation,LevelOfIncreasing);
