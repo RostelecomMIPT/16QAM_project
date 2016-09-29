@@ -1,17 +1,18 @@
 function [ FunctionOfCorrelation ] = FuncCorrelation( SignalOut, Nfft )
-MultiplicationOfWindows = zeros(1, length(SignalOut) - Nfft);
-FirstWindow = zeros(1, length(SignalOut) - Nfft);
-SecondWindow = zeros(1, length(SignalOut) - Nfft);
-FunctionOfCorrelation = zeros(1, length(SignalOut) - Nfft);
-SignalOut = [SignalOut zeros(1,Nfft/16)]; 
-   for k = 1 : (length(SignalOut) - Nfft)
-       for l = 0 : ((Nfft/16)-1)
-           MultiplicationOfWindows(k) = MultiplicationOfWindows(k)...
-               + SignalOut(k + l)*SignalOut(k + Nfft + l);
-           FirstWindow(k) = FirstWindow(k) + SignalOut(k + l)^2;
-           SecondWindow(k) = SecondWindow(k) + SignalOut(k + Nfft + l)^2;
-       end
-       FunctionOfCorrelation(k) =...
-           MultiplicationOfWindows(k)/sqrt(FirstWindow(k) * SecondWindow(k));
-   end
+    MedMax = length(SignalOut);
+    SignalOut = [SignalOut zeros(1,2*Nfft)];
+    for l = 1:MedMax
+        NormaFirst = SignalOut(l)^2;
+        NormaSecond = SignalOut(l + Nfft)^2;
+        MedFunctionOfCorrelation(1) = SignalOut(l)...
+                                          *SignalOut(l + Nfft);
+        for k = 2:Nfft/16
+            MedFunctionOfCorrelation(k) = SignalOut(l + k - 1)...
+                                          *SignalOut(l + k + Nfft);
+            NormaFirst = NormaFirst + SignalOut(l + k - 1)^2;
+            NormaSecond = NormaSecond + SignalOut(l + k + Nfft)^2; 
+        end
+        FunctionOfCorrelation(l) = sum(MedFunctionOfCorrelation)/...
+                                    sqrt((NormaFirst*NormaSecond));
+    end
 end
