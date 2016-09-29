@@ -10,11 +10,17 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft )
                 MedSignalInFBySymbol,...
                 zeroo,...
                 MedSignalFSymm];
-    %√отовый сигнал в фурье, дл€ действительного сигнала
+    %√отовый сигнал в фурье, дл€ действительного сигнала(выше)
     for k = 1:1:NumbSymbol
         Signal(k,:) = ifft(SignalF(k,:));
+        Pn(k) = abs()
     end
-   SignalOut = [Signal(1,Nfft - Nfft/8 + 1:Nfft) Signal(1,:)];
+    %добавл€ем шум, на наши полезные интервалы.
+    SignalOut
+    %SNR = 20dB = 10 lg (Ps/Pn)
+    %Pn = 
+    %далее добавл€ем защитный интервал в наш сигнал
+    SignalOut = [Signal(1,Nfft - Nfft/8 + 1:Nfft) Signal(1,:)];
     for k = 2:1:NumbSymbol
         SignalOut = [SignalOut Signal(k,Nfft - Nfft/8 + 1:Nfft)  Signal(k,:)];
     end
