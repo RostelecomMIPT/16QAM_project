@@ -1,6 +1,6 @@
 function [ c ] = Midle(FunctionOfCorrelation)
     Level=3;%уровень спуска в ƒб
-    N=2000;
+    N=200;
     Sdwig=FunctionOfCorrelation(N:1152+N);
     [MaxLevel, MaxNumber] = max(Sdwig);
     a=[MaxLevel MaxNumber];
