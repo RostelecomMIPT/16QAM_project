@@ -14,6 +14,7 @@ MedSignalInF = Mapper(Bits, Nsk);
 SignalOut = Modul( MedSignalInF , NumbSymbol, Nc, Nfft );
 FunctionOfCorrelation = FuncCorrelation(SignalOut,Nfft);
 plot(FunctionOfCorrelation);
+a=Midle(FunctionOfCorrelation);
 % plot(SignalOut);
 %DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
 % scatterplot(DeSignalInF)
