@@ -1,16 +1,16 @@
 %добавляем шум. Но только в интервалы с полезной инфой.
 
-function [ SignaNoiseTu ] = NoiseSignalOutTu( Signal,NumbSymbol )
+function [ SignaNoiseTu ] = NoiseSignalOutTu( Signal )
     SNR = 20; %соотношение сигнал-шум в дБ
     Mu = 0; % матожидание
-    Psignal = sum(Signal.^2,2);
-    Pnoise = Psignal*10^(-SNR/10);
+    Psignal = sum(Signal.^2,2)/length(Signal);
+    Pnoise = Psignal/(10^(SNR/10));
     Sigma = sqrt(Pnoise);
-    for k = 1:NumbSymbol
-        for t = 1:length(Signal)
-            SignalNoise(k,t) = (1/(Sigma(k)*sqrt(2*pi)))*exp(-((t-Mu)^2)/(2*Sigma(k)));
-        end
-    end
+            % ниже сразу весь шум выходит в 1 строчку, в зависимости только
+            % от отношения СНР
+            % SignalNoise(k,t) = wgn(1,length(Signal),SNR);
+    SignalNoise = normrnd(Mu, Sigma, 1, length(Signal));
+    PnoiseAfter = sum(SignalNoise.^2,2)/length(Signal);
     SignaNoiseTu = SignalNoise(1,:);
     if (NumbSymbol > 1)       
         for k = 2:NumbSymbol
@@ -18,4 +18,5 @@ function [ SignaNoiseTu ] = NoiseSignalOutTu( Signal,NumbSymbol )
         end
     end
 % проверка нашего шума через заданное соотношение мощностей
+    MedConstanta = 10*log10(Psignal./PnoiseAfter);
 end

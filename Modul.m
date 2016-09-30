@@ -1,4 +1,4 @@
-function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft )
+function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
     for k = 1:NumbSymbol
         MedSignalInFBySymbol(k,:) = MedSignalInF(((k-1)*Nc+1):k*Nc);
     end
@@ -14,14 +14,18 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft )
     for k = 1:1:NumbSymbol
         Signal(k,:) = ifft(SignalF(k,:));
     end
-    %добавляем шум, на наши полезные интервалы.
-    SignaNoiseTu = NoiseSignalOutTu(Signal,NumbSymbol);
-    %SNR = 20dB = 10 lg (Ps/Pn)
-    %Pn = 
     %далее добавляем защитный интервал в наш сигнал
     SignalOut = [Signal(1,Nfft - Nfft/8 + 1:Nfft) Signal(1,:)];
     for k = 2:1:NumbSymbol
         SignalOut = [SignalOut Signal(k,Nfft - Nfft/8 + 1:Nfft)  Signal(k,:)];
     end
+    %добавляем шум, на наши полезные интервалы.
+%     SignaNoiseTu = NoiseSignalOutTu(Signal);
+    Psignal = sum(SignalOut.^2,2)/length(SignalOut);
+    Pnoise = Psignal/(10^(SNR/10));
+    Sigma = sqrt(Pnoise);
+    SignalNoiseTu = wgn(1,length(SignalOut), 10*log10(Pnoise));
+    SignalOut = SignalOut + SignalNoiseTu;
+    z = 0;
 end
 
