@@ -1,27 +1,23 @@
 function [ PositionOfTs ] = PositionOfTs( FunctionOfCorrelation,...
-                                          LevelOfIncreasing, Nfft,...
-                                          ShiftOnPositionOfTs)
-    MedFunctionOfCorrelation = ...
-        FunctionOfCorrelation((ShiftOnPositionOfTs-2)*(Nfft+Nfft/8) + (Nfft/8)...
-                              : (ShiftOnPositionOfTs-2)*(Nfft+Nfft/8) + (2*Nfft/8+Nfft) - 1);
+                                          LevelOfIncreasing, Nfft)
     [MaxAmp, MaxIndex] =...
-        max(MedFunctionOfCorrelation);
+        max(FunctionOfCorrelation);
     CutLevel = MaxAmp*(10^(-(LevelOfIncreasing/20)));
     l = 1; m = 1;
     while ((l ~= 0) || (m ~= 0))
-        if ((l ~=0) && ((MedFunctionOfCorrelation(MaxIndex + l) < CutLevel)))
+        if ((l ~=0) && ((FunctionOfCorrelation(MaxIndex + l) < CutLevel)))
             RightCut = MaxIndex + l;
             l = 0;
         elseif (l ~=0)
             l = l + 1;
         end
-        if ((m ~=0) && (MedFunctionOfCorrelation(MaxIndex - m) < CutLevel))
+        if ((m ~=0) && (FunctionOfCorrelation(MaxIndex - m) < CutLevel))
             LeftCut = MaxIndex - m;
             m = 0;
         elseif (m ~=0)
             m = m + 1;
         end
     end
-    PositionOfTs = fix((LeftCut + RightCut)/2) + Nfft/8;
+    PositionOfTs = fix((LeftCut + RightCut)/2)+Nfft/8;
 end
 
