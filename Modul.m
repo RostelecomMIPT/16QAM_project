@@ -24,8 +24,8 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
     Psignal = sum(SignalOut.^2,2)/length(SignalOut);
     Pnoise = Psignal/(10^(SNR/10));
     Sigma = sqrt(Pnoise);
-    SignalNoiseTu = wgn(1,length(SignalOut), 10*log10(Pnoise));
-    SignalOut = SignalOut + SignalNoiseTu;
+    SignalNoise = wgn(1,length(SignalOut), 10*log10(Pnoise));
+    SignalOut = SignalOut + SignalNoise;
     z = 0;
 end
 

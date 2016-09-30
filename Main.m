@@ -5,7 +5,7 @@ Register = [1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 ];
 Nsk = 16;
 Nfft = 1024;
 Nc = 100;
-NumbSymbol = 1;
+NumbSymbol = 10;
 LevelOfIncreasing = 3;
 SNR = 10;
 rng(0);
