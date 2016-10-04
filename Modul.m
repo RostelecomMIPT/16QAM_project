@@ -18,9 +18,13 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
     end
 %     PSignal = sum(abs(Signal).^2, 2);
     %далее добавляем защитный интервал в наш сигнал
-    SignalOut = [Signal(1,Nfft - Nfft/8 + 1:Nfft) Signal(1,:)];
+%     SignalOut = [Signal(1,Nfft - Nfft/8 + 1:Nfft) Signal(1,:)];
+%     for k = 2:1:NumbSymbol
+%         SignalOut = [SignalOut Signal(k,Nfft - Nfft/8 + 1:Nfft)  Signal(k,:)];
+%     end
+    SignalOut = Signal(1,:);
     for k = 2:1:NumbSymbol
-        SignalOut = [SignalOut Signal(k,Nfft - Nfft/8 + 1:Nfft)  Signal(k,:)];
+        SignalOut = [SignalOut Signal(k,:)];
     end
     %добавляем шум, на наши полезные интервалы.
 %     SignaNoiseTu = NoiseSignalOutTu(Signal);
@@ -28,6 +32,9 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
     Pnoise = Psignal/(10^(SNR/10));
     Sigma = sqrt(Pnoise);
     SignalNoise = wgn(1,length(SignalOut), 10*log10(Pnoise));
+    P1N = sum(SignalNoise.^2);
+    P1S = sum(SignalOut.^2);
     SignalOut = SignalOut + SignalNoise;
+    lll = 10*log10(P1S/P1N);
 end
 
