@@ -6,9 +6,9 @@ Register = [1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 ];
 Nsk = 16;
 Nfft = 1024;
 Nc = 100;
-NumbSymbol = 10;
+NumbSymbol = 1;
 LevelOfIncreasing = 3;
-SNR = 0;
+SNR = 10;
 rng(0);
 InputBits = randi([0,1],1,(Nc*sqrt(Nsk)*NumbSymbol));
 %начала операций
@@ -26,9 +26,8 @@ for ShiftOnPositionOfTs = 2:1: NumbSymbol - 1
         FunctionOfCorrelation((ShiftOnPositionOfTs-2)*(Nfft+Nfft/8)+...
         TS(ShiftOnPositionOfTs-1)),'*');
 end
-% a=Middle(FunctionOfCorrelation);
-% plot(SignalOut);
-%DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
+DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
+z = 0;
 % scatterplot(DeSignalInF)
 % figure;
 %  plot(abs(DeSignalInF));

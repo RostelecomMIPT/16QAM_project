@@ -1,6 +1,7 @@
 function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
     for k = 1:NumbSymbol
         MedSignalInFBySymbol(k,:) = MedSignalInF(((k-1)*Nc+1):k*Nc);
+
     end
     for k = 1:1:NumbSymbol
         MedSignalFSymm(k,:) = (wrev(MedSignalInFBySymbol(k,:)))'; 
@@ -10,10 +11,12 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
                 MedSignalInFBySymbol,...
                 zeroo,...
                 MedSignalFSymm];
+%     PSignalInF = sum(abs(SignalF).^2, 2)/length(SignalF);
     %Готовый сигнал в фурье, для действительного сигнала(выше)
     for k = 1:1:NumbSymbol
         Signal(k,:) = ifft(SignalF(k,:));
     end
+%     PSignal = sum(abs(Signal).^2, 2);
     %далее добавляем защитный интервал в наш сигнал
     SignalOut = [Signal(1,Nfft - Nfft/8 + 1:Nfft) Signal(1,:)];
     for k = 2:1:NumbSymbol
@@ -26,6 +29,5 @@ function [ SignalOut ] = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR )
     Sigma = sqrt(Pnoise);
     SignalNoise = wgn(1,length(SignalOut), 10*log10(Pnoise));
     SignalOut = SignalOut + SignalNoise;
-    z = 0;
 end
 
