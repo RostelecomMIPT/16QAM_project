@@ -7,9 +7,11 @@ DeSignalBySymbol = [];
         end
     end
     for n=1:DeNumbOFDM
-        DeSignalF(n,:) = fft(DeSignalBySymbol(n, 1:Nfft));%fft(DeSignalBySymbol(n,Nfft/8+1:((Nfft + Nfft/8))), Nfft);
+        DeSignalF(n,:) = fft(DeSignalBySymbol(n, 1:Nfft));
+        %fft(DeSignalBySymbol(n,Nfft/8+1:((Nfft + Nfft/8))), Nfft);
     end
-DeSignalInF=[];
+%     MER = MER/DeNumbOFDM;
+    DeSignalInF=[];
     for k=1:DeNumbOFDM
         DeSignalInF=[DeSignalInF DeSignalF(k,2:Nc+1)];
     end

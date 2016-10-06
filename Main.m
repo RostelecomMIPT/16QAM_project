@@ -26,7 +26,7 @@ FunctionOfCorrelation = FuncCorrelation(SignalOut,Nfft);
 %         FunctionOfCorrelation((ShiftOnPositionOfTs-2)*(Nfft+Nfft/8)+...
 %         TS(ShiftOnPositionOfTs-1)),'*');
 % end
-DeSignalInF =DeModulator(SignalOut,Nfft,Nc);
+DeSignalInF = DeModulator(SignalOut,Nfft,Nc);
 MER = MerFunction(DeSignalInF, Nsk);
 z = 0;
 % scatterplot(DeSignalInF)
