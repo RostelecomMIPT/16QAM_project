@@ -28,7 +28,6 @@ SignalOut = Modul( MedSignalInF , NumbSymbol, Nc, Nfft, SNR);
 % end
 [ DeSignalInFUse, DeSignalF ] = DeModulator(SignalOut,Nfft,Nc);
 MER = MerFunction(DeSignalF, Nsk, Nfft);
-z = 0;
-DeBits = DeMapper(DeSignalInFUse,Nc,Nsk );
+% DeBits = DeMapper(DeSignalInFUse,Nc,Nsk );
 % FinalBits = RSLOS(DeBits, Register);
 % plot(xor(FinalBits,InputBits));

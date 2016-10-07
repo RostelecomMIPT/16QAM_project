@@ -2,8 +2,7 @@ function [ DeBits ] = DeMapper( DeSignalInFUse,Nc ,Nsk )
     n = 1;
     for k = 1 : 1 : sqrt(Nsk)
         for l = 1 : 1 : sqrt(Nsk)
-            Dictionary1Re(n) = (2*k-1-sqrt(Nsk));
-            Dictionary1Im(n) = (2*l-1-sqrt(Nsk));
+            Ideal (n) = complex((2*k-1-sqrt(Nsk)), (2*l-1-sqrt(Nsk)));
             n = n + 1;
         end
     end
